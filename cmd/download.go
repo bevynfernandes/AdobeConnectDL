@@ -111,16 +111,31 @@ Examples:
 		// Collect all URLs from args and file
 		urls := make([]string, 0)
 
-		// Add URLs from command line arguments
-		urls = append(urls, args...)
+		// Helper to clean backslashes from URLs
+		cleanURL := func(s string) string {
+			return strings.ReplaceAll(s, "\\", "")
+		}
 
-		// Add URLs from file if specified
+		// Add URLs from command line arguments (clean backslashes)
+		for _, a := range args {
+			if a == "" {
+				continue
+			}
+			urls = append(urls, cleanURL(a))
+		}
+
+		// Add URLs from file if specified (clean backslashes)
 		if urlFileFlag != "" {
 			fileURLs, err := readURLsFromFile(urlFileFlag)
 			if err != nil {
 				return fmt.Errorf("failed to read URLs from file: %w", err)
 			}
-			urls = append(urls, fileURLs...)
+			for _, u := range fileURLs {
+				if u == "" {
+					continue
+				}
+				urls = append(urls, cleanURL(u))
+			}
 		}
 
 		// Validate we have at least one URL
