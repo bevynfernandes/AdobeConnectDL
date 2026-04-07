@@ -16,6 +16,8 @@ This is a Go CLI (using Cobra) that automatically grabs the MP4 and VTT URLs fro
 
 I wrote this because my university uses Adobe Connect to host lectures and store recordings, and for some reason you can only view recordings online, not download them. Given that I'm sometimes in places with no Internet access or terrible connectivity, I built this tool to solve my own (and my fellow students') woes so we can watch our lectures anywhere, any time.
 
+Curious to read up on how I made this tool? [Have a look at my blog post here](https://keanuc.net/blog/creating-the-world-s-best-adobe-connect-recording-downloader-for-fun/)
+
 ## ✨ What it does
 
 For each Adobe Connect recording URL you give it, AdobeConnectDL will:
