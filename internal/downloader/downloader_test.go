@@ -172,7 +172,11 @@ var transcriptFilename = 'video captions.vtt';
 	defer server.Close()
 
 	dl := New(server.Client())
-	res, err := dl.Download(context.Background(), server.URL+"/rec/?session=abc123", Options{OutputDir: t.TempDir()})
+	res, err := dl.Download(
+		context.Background(),
+		server.URL+"/rec/?session=abc123",
+		Options{OutputDir: t.TempDir()},
+	)
 	if err != nil {
 		t.Fatalf("download error: %v", err)
 	}
@@ -180,7 +184,9 @@ var transcriptFilename = 'video captions.vtt';
 		t.Fatalf("expected recording page to be refreshed before downloading captions")
 	}
 	if !captionRequestOK.Load() {
-		t.Fatal("caption request did not preserve query parameters, filename, referer and session cookie")
+		t.Fatal(
+			"caption request did not preserve query parameters, filename, referer and session cookie",
+		)
 	}
 	assertFileContent(t, filepath.Join(res.RootDir, "captions.vtt"), []byte(vttContent))
 }
